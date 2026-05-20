@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weezdle - The Weezer Guessing Game</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1 onclick="returnToMenu()">WEEZDLE</h1>
+        <p class="subtitle">Type and guess the secret Weezer song!</p>
+        <button class="theme-toggle-btn" onclick="toggleTheme()" id="theme-btn">☀️ Light Mode</button>
+    </header>
+
+    <div class="news-ticker-container">
+        <div class="ticker-badge">NEWS</div>
+        <div class="ticker-wrap">
+            <div class="ticker-move">
+                RIVERS CUOMO SPOTTED SEARCHING FOR HIS DESTROYED SWEATER THREADS... ALBUM FLASH: THE BLUE ALBUM TURNS 32 IN 2026!... 
+            </div>
+        </div>
+    </div>
+
+    <div id="menu-screen">
+        <div class="menu-section">
+            <h2 class="daily-header">📅 Daily Challenges</h2>
+            <p style="color: var(--text-muted); font-size:0.9rem; margin:-5px 0 15px 0;">One track per configuration daily. Everyone plays the exact same song sequence!</p>
+            <div class="menu-grid">
+                <button class="menu-btn" onclick="launchGame('daily', 'both')">🎶 Both Hints</button>
+                <button class="menu-btn" onclick="launchGame('daily', 'audio')">📻 Audio Only</button>
+                <button class="menu-btn" onclick="launchGame('daily', 'text')">📄 Text Only</button>
+            </div>
+        </div>
+
+        <div class="menu-section">
+            <h2 class="endless-header">♾️ Freeplay Endless Modes</h2>
+            <p style="color: var(--text-muted); font-size:0.9rem; margin:-5px 0 15px 0;">Play infinitely, practice database lookups, and test your ultimate win streak records.</p>
+            <div class="menu-grid">
+                <button class="menu-btn" onclick="launchGame('endless', 'both')">🎶 Both Hints</button>
+                <button class="menu-btn" onclick="launchGame('endless', 'audio')">📻 Audio Only</button>
+                <button class="menu-btn" onclick="launchGame('endless', 'text')">📄 Text Only</button>
+            </div>
+        </div>
+
+       <!-- <div class="menu-section toy-box" style="text-align: center;">
+            <h2 style="color: var(--weezer-blue); text-shadow: 1px 1px 0px rgba(0,0,0,0.5);">Random Lyric</h2>
+            <p id="quote-display" style="font-style: italic; font-weight: bold; margin-bottom: 18px; min-height: 44px; display: flex; align-items: center; justify-content: center; transition: transform 0.1s ease;">
+                "Flip on the telly, wrestle with Jimmy..."
+            </p>
+            <button class="menu-btn" onclick="generateLyric()" style="padding: 10px 24px; font-size: 0.9rem; width: auto; display: inline-block; margin: 0 auto;">
+                New Lyric
+            </button>
+        </div>-->
+    </div>
+
+    <div id="game-screen">
+        <div id="mode-badge-el" class="mode-badge"></div>
+        <div id="streak-display" style="display:none;">Streak: 0</div>
+
+        <div class="input-area">
+            <input type="text" id="song-input" class="game-input" list="weezer-options" placeholder="Type a song title or album..." autocomplete="off">
+            <datalist id="weezer-options"></datalist>
+            <button class="guess-btn" onclick="makeGuess()">GUESS</button>
+            <button class="skip-btn" onclick="skipTurn()">SKIP</button>
+        </div>
+
+        <div id="hint-box"></div>
+        <div id="message"></div>
+
+        <div class="grid">
+            <div class="row header-row">
+                <div>Song</div>
+                <div>Album</div>
+                <div>Year</div>
+                <div>Track</div>
+                <div>Length</div>
+            </div>
+            <div id="guesses-container"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div>=W= Est. 2026</div>
+            <div>Not affiliated with Rivers & Weezer.</div>
+            <div>Made by SleetyDev</div>
+        </div>
+    </footer>
+</div>
+
+<script>
+    const lyrics = [
+    // Blue Album
+        '"If you want to destroy my sweater, pull this thread as I walk away."',
+        '"Say it ain\'t so, your drug is a heartbreaker."',
+        '"I look just like Buddy Holly, and you\'re Mary Tyler Moore."',
+        '"My name is Jonas, I\'m carrying the wheel."',
+        '"In the garage, I feel safe, no one cares about my ways."',
+        '"The world has turned and left me here, just where I was before you appeared."',
+        '"Surf wax America, we\'re going to the beach."',
+        '"Only in dreams, we see what it means, reach out and touch the sky."',
+        
+        // Pinkerton
+        '"I\'m tired, I\'m tired of having sex, I\'m spread so thin, I don\'t know who I am."',
+        '"Across the sea, I typed your letters to a girl who didn\'t know me."',
+        '"Goddamn, this business is really catching up with me."',
+        '"Pink triangle on her sleeve, let me know the truth, portrays strawberries on a paper plate."',
+        '"Falling for you, holy sweet goddamn, you left your diary in my hand."',
+        '"Why bother? It\'s gonna hurt me, it\'s gonna kill when you desert me."',
+        
+        // Green Album & Maladroit
+        '"Hash pipe, I\'ve got my hash pipe."',
+        '"Keep fishin\', if you feel it, keep fishin\', keep fishin\', keep fishin\'."',
+        
+        // Make Believe / Red / White / Everything Else
+        '"Beverly Hills, that\'s where I want to be, living in Beverly Hills."',
+        '"If you\'re wondering if I want you to, I want you to."',
+        '"Troublemaker, I\'m a troublemaker, never been a faker, doing things my own way."',
+        '"I am the greatest man that ever lived, I was born to give, and give, and give."',
+        '"Island in the sun, we\'ll be playing and having fun."',
+        '"Where\'s my sex? I thought it was here, I thought it was here!"',
+        '"Susanne, oh Susanne, I\'m head over heels, I\'m head over heels for you."'
+    ];
+
+    function generateLyric() {
+        const display = document.getElementById('quote-display');
+        const randomLyric = lyrics[Math.floor(Math.random() * lyrics.length)];
+        display.innerText = randomLyric;
+        
+        // Fast dynamic pop effect
+        display.style.transform = "scale(1.04) rotate(-1deg)";
+        setTimeout(() => {
+            display.style.transform = "scale(1) rotate(0deg)";
+        }, 80);
+    }
+</script>
+
+<script src="index.js"></script>
+</body>
+</html>
