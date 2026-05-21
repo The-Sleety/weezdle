@@ -93,36 +93,7 @@
 
 <script>
     const lyrics = [
-    // Blue Album
-        '"If you want to destroy my sweater, pull this thread as I walk away."',
-        '"Say it ain\'t so, your drug is a heartbreaker."',
-        '"I look just like Buddy Holly, and you\'re Mary Tyler Moore."',
-        '"My name is Jonas, I\'m carrying the wheel."',
-        '"In the garage, I feel safe, no one cares about my ways."',
-        '"The world has turned and left me here, just where I was before you appeared."',
-        '"Surf wax America, we\'re going to the beach."',
-        '"Only in dreams, we see what it means, reach out and touch the sky."',
-        
-        // Pinkerton
-        '"I\'m tired, I\'m tired of having sex, I\'m spread so thin, I don\'t know who I am."',
-        '"Across the sea, I typed your letters to a girl who didn\'t know me."',
-        '"Goddamn, this business is really catching up with me."',
-        '"Pink triangle on her sleeve, let me know the truth, portrays strawberries on a paper plate."',
-        '"Falling for you, holy sweet goddamn, you left your diary in my hand."',
-        '"Why bother? It\'s gonna hurt me, it\'s gonna kill when you desert me."',
-        
-        // Green Album & Maladroit
-        '"Hash pipe, I\'ve got my hash pipe."',
-        '"Keep fishin\', if you feel it, keep fishin\', keep fishin\', keep fishin\'."',
-        
-        // Make Believe / Red / White / Everything Else
-        '"Beverly Hills, that\'s where I want to be, living in Beverly Hills."',
-        '"If you\'re wondering if I want you to, I want you to."',
-        '"Troublemaker, I\'m a troublemaker, never been a faker, doing things my own way."',
-        '"I am the greatest man that ever lived, I was born to give, and give, and give."',
-        '"Island in the sun, we\'ll be playing and having fun."',
-        '"Where\'s my sex? I thought it was here, I thought it was here!"',
-        '"Susanne, oh Susanne, I\'m head over heels, I\'m head over heels for you."'
+
     ];
 
     function generateLyric() {
@@ -130,7 +101,6 @@
         const randomLyric = lyrics[Math.floor(Math.random() * lyrics.length)];
         display.innerText = randomLyric;
         
-        // Fast dynamic pop effect
         display.style.transform = "scale(1.04) rotate(-1deg)";
         setTimeout(() => {
             display.style.transform = "scale(1) rotate(0deg)";
