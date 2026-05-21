@@ -3,9 +3,8 @@
     let attempts = 0;
     const maxAttempts = 6;
 
-    // Mode Engine State Machines
-    let currentPeriod = 'menu'; // 'menu' | 'daily' | 'endless'
-    let currentModifier = 'both'; // 'both' | 'audio' | 'text'
+    let currentPeriod = 'menu'; 
+    let currentModifier = 'both';
     let endlessStreaks = { both: 0, audio: 0, text: 0 };
 
     const menuScreen = document.getElementById('menu-screen');
@@ -20,7 +19,6 @@
     const guessButton = document.querySelector('.guess-btn');
     const skipButton = document.querySelector('.skip-btn');
 
-    // progressive limits used strictly by "Both Hints" mode
     const bothModeClipsConfig = {
         1: { seconds: 3, label: "3-Second Teaser Preview" },
         2: { seconds: 3, label: "3-Second Teaser Preview" },
@@ -37,7 +35,6 @@
         document.getElementById('theme-btn').textContent = targetTheme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode';
     }
 
-    // Read asset profile configuration safely asynchronously from disk 
     fetch('songs.json')
         .then(response => {
             if (!response.ok) throw new Error("Could not find songs.json profile file.");
@@ -61,7 +58,6 @@
         menuScreen.style.display = 'none';
         gameScreen.style.display = 'block';
 
-        // Update Context Labels visually
         badgeEl.textContent = `${period} — ${modifier} mode`;
         if (period === 'endless') {
             streakEl.style.display = 'block';
@@ -77,12 +73,10 @@
         currentPeriod = 'menu';
         menuScreen.style.display = 'block';
         gameScreen.style.display = 'none';
-        // Clear background ambient processes if left running
         const player = document.getElementById('preview-player');
         if (player) player.pause();
     }
 
-    // Pseudorandom custom seeded map generator to ensure identical tracks for standard global dates
     function getDailySeededIndex(moduloMax) {
         const d = new Date();
         const pseudoSeed = (d.getFullYear() * 365) + ((d.getMonth() + 1) * 31) + d.getDate();
@@ -118,7 +112,6 @@
             secretSong = weezerSongs[randomIndex];
         }
 
-        // AUDIO ONLY MODE: Fire audio immediately on attempt 0 before any guesses are typed
         if (currentModifier === 'audio') {
             revealAudioPreview(secretSong, 0); 
         }
@@ -194,9 +187,7 @@
             </audio>
         `;
 
-        // If hintBox is currently displaying clean text text rules, append alongside them
         if(currentModifier === 'both' && hintBoxEl.innerHTML !== "") {
-             // Avoid wiping text characters if they already exist inside the block
              const textCheck = hintBoxEl.querySelector('#preview-audio-container');
              if(!textCheck) hintBoxEl.appendChild(audioWrapper);
         } else {
@@ -217,10 +208,8 @@
         const existingAudioContainer = document.getElementById('preview-audio-container');
         if (existingAudioContainer) existingAudioContainer.remove();
 
-        // Strip parentheticals from title for cleaner keyword matching
         const cleanTitle = song.title.split('(')[0].trim();
         
-        // Build a strict search term targeting official music releases
         const strictQuery = `Weezer "${cleanTitle}" ${song.album} official audio`;
         const ytUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(strictQuery)}`;
 
@@ -359,20 +348,16 @@
 
         container.insertBefore(row, container.firstChild); 
 
-        // Live mode layout adjustments 
         if (guessedSong.title !== secretSong.title) {
-            // 1. Audio Only Mode -> Keep audio container refreshed and alive
             if (currentModifier === 'audio') {
                 revealAudioPreview(secretSong, attempts);
             }
             
-            // 2. Text Only Mode -> Unlocks text data starting at Try 3
             if (currentModifier === 'text' && attempts >= 3) {
                 hintBoxEl.innerHTML = generateDynamicHint(secretSong);
                 hintBoxEl.style.display = "block";
             }
 
-            // 3. Both Hints Mode -> Starts teasing step-by-step at Try 3
             if (currentModifier === 'both' && attempts >= 3) {
                 hintBoxEl.innerHTML = generateDynamicHint(secretSong);
                 hintBoxEl.style.display = "block";
@@ -380,7 +365,6 @@
             }
         }
 
-        // Win/Loss State Processing Blocks
         if (isActualGuess && guessedSong.title.toLowerCase() === secretSong.title.toLowerCase()) {
             messageEl.style.color = "var(--weezer-green)";
             
