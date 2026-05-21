@@ -5,10 +5,10 @@
     --weezer-red: #E74C3C;         
     
     --bg-color: #0b0c10;
-    --surface-color: #161b22; /* Slightly deepened surface */
-    --border-color: #4e5d6c;  /* Softened from stark white to a muted steel blue */
-    --text-main: #e2e8f0;     /* Off-white to reduce eye strain */
-    --text-muted: #8a99a8;    /* Balanced secondary text */
+    --surface-color: #161b22; 
+    --border-color: #4e5d6c;  
+    --text-main: #e2e8f0;    
+    --text-muted: #8a99a8;   
     --tile-bg: #0f1319;
     
     --correct: var(--weezer-green);
@@ -21,8 +21,8 @@
 [data-theme="light"] {
     --bg-color: #00A3E0; 
     --surface-color: #ffffff;
-    --border-color: #2c3e50;  /* Softened dark border instead of harsh pure black */
-    --text-main: #2c3e50;     /* Deep slate text instead of pure black */
+    --border-color: #2c3e50; 
+    --text-main: #2c3e50;    
     --text-muted: #627284;
     --tile-bg: #f4f7fa;
     --wrong: #8a95a5;
@@ -30,7 +30,7 @@
     --bg-pattern-opacity: 0.12;
 }
 
-/* Base Setup & Sharp Typography */
+
 body {
     font-family: "Courier New", Courier, monospace, system-ui; 
     background-color: var(--bg-color);
@@ -45,7 +45,7 @@ body {
     transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Animated Background Pattern */
+
 body::before {
     content: "";
     position: fixed;
@@ -76,9 +76,9 @@ body::before {
     z-index: 1;
 }
 
-/* Sharp Header with Comic Book Split */
+
 header {
-    border-bottom: 4px dashed var(--border-color); /* Softened wireframe divider */
+    border-bottom: 4px dashed var(--border-color);
     padding-bottom: 20px;
     margin-bottom: 30px;
     position: relative;
@@ -110,7 +110,7 @@ p.subtitle {
     letter-spacing: 1px;
 }
 
-/* Sharp Toggle Button */
+
 .theme-toggle-btn {
     position: absolute;
     right: 0;
@@ -132,7 +132,7 @@ p.subtitle {
     box-shadow: 5px 5px 0px var(--border-color);
 }
 
-/* Menu Panel Dashboard Styles */
+
 #menu-screen {
     display: block;
     animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -140,7 +140,7 @@ p.subtitle {
 
 .menu-section {
     background: var(--surface-color);
-    border: 4px solid var(--border-color); /* Tone-matched sharp panel border */
+    border: 4px solid var(--border-color);
     border-radius: 0px; 
     padding: 24px;
     margin-bottom: 25px;
@@ -169,7 +169,7 @@ p.subtitle {
     margin-top: 20px;
 }
 
-/* Arcade Style Keyboard Key Buttons */
+
 .menu-btn {
     background: var(--tile-bg);
     border: 3px solid var(--border-color);
@@ -195,7 +195,6 @@ p.subtitle {
     box-shadow: 0px 0px 0px transparent;
 }
 
-/* Main Game Arena Container */
 #game-screen {
     display: none;
     background: var(--surface-color);
@@ -220,7 +219,6 @@ p.subtitle {
     box-shadow: 2px 2px 0px rgba(0,0,0,0.3);
 }
 
-/* High Contrast Input Row */
 .input-area {
     display: flex;
     gap: 12px;
@@ -247,7 +245,6 @@ p.subtitle {
     background: var(--bg-color);
 }
 
-/* Sharp Action Buttons */
 button.guess-btn, button.skip-btn, .action-btn {
     color: #ffffff;
     border: 3px solid var(--border-color);
@@ -300,7 +297,6 @@ button.guess-btn:disabled, button.skip-btn:disabled {
     background-color: var(--weezer-blue);
 }
 
-/* Comic Book Dialogue Style Hint Box */
 #hint-box {
     background: var(--tile-bg);
     border: 3px dashed var(--weezer-yellow);
@@ -316,7 +312,6 @@ button.guess-btn:disabled, button.skip-btn:disabled {
     box-shadow: 4px 4px 0px rgba(0,0,0,0.15);
 }
 
-/* Sharp Matrix Rows */
 .grid {
     margin-top: 30px;
     display: flex;
@@ -341,10 +336,9 @@ button.guess-btn:disabled, button.skip-btn:disabled {
     margin-bottom: 6px;
 }
 
-/* Chunky Grid Tiles */
 .tile {
     background-color: var(--tile-bg);
-    border: 3px solid var(--border-color); /* Changed from pure white line to theme variable */
+    border: 3px solid var(--border-color); 
     min-height: 60px;
     display: flex;
     flex-direction: column;
@@ -432,7 +426,6 @@ button.guess-btn:disabled, button.skip-btn:disabled {
     box-shadow: 0px 0px 0px transparent;
 }
 
-/* Snappy, Distinct Animations */
 @keyframes flipInSharp {
     0% { transform: rotateX(-90deg); opacity: 0; filter: brightness(1.4); }
     100% { transform: rotateX(0deg); opacity: 1; filter: brightness(1); }
