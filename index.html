@@ -10,9 +10,11 @@
 
 <div class="container">
     <header>
-        <h1 onclick="returnToMenu()">WEEZDLE</h1>
+        <h1>
+            <button type="button" class="logo-btn" onclick="returnToMenu()">WEEZDLE</button>
+        </h1>
         <p class="subtitle">Type and guess the secret Weezer song!</p>
-        <button class="theme-toggle-btn" onclick="toggleTheme()" id="theme-btn">☀️ Light Mode</button>
+        <button type="button" class="theme-toggle-btn" onclick="toggleTheme()" id="theme-btn">☀️ Light Mode</button>
     </header>
 
     <div class="news-ticker-container">
@@ -29,9 +31,9 @@
             <h2 class="daily-header">📅 Daily Challenges</h2>
             <p style="color: var(--text-muted); font-size:0.9rem; margin:-5px 0 15px 0;">One track per configuration daily. Everyone plays the exact same song sequence!</p>
             <div class="menu-grid">
-                <button class="menu-btn" onclick="launchGame('daily', 'both')">🎶 Both Hints</button>
-                <button class="menu-btn" onclick="launchGame('daily', 'audio')">📻 Audio Only</button>
-                <button class="menu-btn" onclick="launchGame('daily', 'text')">📄 Text Only</button>
+                <button type="button" class="menu-btn" onclick="launchGame('daily', 'both')">🎶 Both Hints</button>
+                <button type="button" class="menu-btn" onclick="launchGame('daily', 'audio')">📻 Audio Only</button>
+                <button type="button" class="menu-btn" onclick="launchGame('daily', 'text')">📄 Text Only</button>
             </div>
         </div>
 
@@ -39,21 +41,11 @@
             <h2 class="endless-header">♾️ Freeplay Endless Modes</h2>
             <p style="color: var(--text-muted); font-size:0.9rem; margin:-5px 0 15px 0;">Play infinitely, practice database lookups, and test your ultimate win streak records.</p>
             <div class="menu-grid">
-                <button class="menu-btn" onclick="launchGame('endless', 'both')">🎶 Both Hints</button>
-                <button class="menu-btn" onclick="launchGame('endless', 'audio')">📻 Audio Only</button>
-                <button class="menu-btn" onclick="launchGame('endless', 'text')">📄 Text Only</button>
+                <button type="button" class="menu-btn" onclick="launchGame('endless', 'both')">🎶 Both Hints</button>
+                <button type="button" class="menu-btn" onclick="launchGame('endless', 'audio')">📻 Audio Only</button>
+                <button type="button" class="menu-btn" onclick="launchGame('endless', 'text')">📄 Text Only</button>
             </div>
         </div>
-
-       <!-- <div class="menu-section toy-box" style="text-align: center;">
-            <h2 style="color: var(--weezer-blue); text-shadow: 1px 1px 0px rgba(0,0,0,0.5);">Random Lyric</h2>
-            <p id="quote-display" style="font-style: italic; font-weight: bold; margin-bottom: 18px; min-height: 44px; display: flex; align-items: center; justify-content: center; transition: transform 0.1s ease;">
-                "Flip on the telly, wrestle with Jimmy..."
-            </p>
-            <button class="menu-btn" onclick="generateLyric()" style="padding: 10px 24px; font-size: 0.9rem; width: auto; display: inline-block; margin: 0 auto;">
-                New Lyric
-            </button>
-        </div>-->
     </div>
 
     <div id="game-screen">
@@ -63,8 +55,8 @@
         <div class="input-area">
             <input type="text" id="song-input" class="game-input" list="weezer-options" placeholder="Type a song title or album..." autocomplete="off">
             <datalist id="weezer-options"></datalist>
-            <button class="guess-btn" onclick="makeGuess()">GUESS</button>
-            <button class="skip-btn" onclick="skipTurn()">SKIP</button>
+            <button type="button" class="guess-btn" onclick="makeGuess()">GUESS</button>
+            <button type="button" class="skip-btn" onclick="skipTurn()">SKIP</button>
         </div>
 
         <div id="hint-box"></div>
@@ -90,23 +82,6 @@
         </div>
     </footer>
 </div>
-
-<script>
-    const lyrics = [
-
-    ];
-
-    function generateLyric() {
-        const display = document.getElementById('quote-display');
-        const randomLyric = lyrics[Math.floor(Math.random() * lyrics.length)];
-        display.innerText = randomLyric;
-        
-        display.style.transform = "scale(1.04) rotate(-1deg)";
-        setTimeout(() => {
-            display.style.transform = "scale(1) rotate(0deg)";
-        }, 80);
-    }
-</script>
 
 <script src="index.js"></script>
 </body>
